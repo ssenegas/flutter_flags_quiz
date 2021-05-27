@@ -24,47 +24,39 @@ class CountryPageState extends State<CountryPage> {
   }
 
   @override
-  void initState(){
+  void initState() {
+    super.initState();
     this.loadJsonCountries();
   }
 
   @override
   Widget build(BuildContext context) {
-    this.loadJsonCountries();
     return Scaffold(
-        appBar: AppBar(title: Text('Countries'),),
-        body: ListView.builder(
-            itemCount: countries == null ? 0 : countries.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Card(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 2.0),
-                    child: new Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 5.0),
-                            child: Image(
-                              fit: BoxFit.fitHeight,
-                              alignment: Alignment.centerLeft,
-                              image: AssetImage('assets/flags/64x64/${countries[index].alpha2}.png'),
-                            ),
-                          ),
-                          new SizedBox(
-                            width: 5.0,
-                          ),
-                          Container(
-                              padding: EdgeInsets.symmetric(vertical: 0.5, horizontal: 1.0),
-                              margin: EdgeInsets.all(2.0),
-                              child: Text(countries[index].name,
-                                style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w600
-                                ),
-                              )
-                          )
-                        ]),
-                  ));
-            }
-        ));
+      appBar: AppBar(title: const Text('Countries')),
+      body: _buildList(),
+    );
+  }
+
+  Widget _buildList() {
+    return ListView.separated(
+      itemCount: countries == null ? 0 : countries.length,
+      separatorBuilder: (context, index) => const Divider(),
+      itemBuilder: _buildListItem,
+    );
+  }
+
+  Widget _buildListItem(BuildContext context, int index) {
+    final theme = Theme.of(context);
+    return ListTile(
+        leading: Image.asset('assets/flags/64x64/${countries[index].alpha2}.png'),
+        title: Text(countries[index].name,
+          overflow: TextOverflow.ellipsis,
+          style: theme.textTheme.headline6,
+        ),
+        subtitle: Text(countries[index].toString(),
+          overflow: TextOverflow.ellipsis,
+          style: theme.textTheme.caption,
+        ),
+    );
   }
 }

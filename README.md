@@ -1,7 +1,6 @@
-# flutter_flags_quiz_app
+# flutter_flags_quiz
 
-A little application written in Dart/Flutter.
-This app lets user test its skills in a game of identifying country flags and name.
+A little application in Dart/Flutter. This app lets users test their skills in a game of identifying country flags and names.
 
 ## Getting Started
 

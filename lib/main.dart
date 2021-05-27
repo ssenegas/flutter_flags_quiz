@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_flags_quiz_app/country.dart';
-import 'dart:async' show Future;
-import 'package:flutter/services.dart' show rootBundle;
-import 'dart:convert';
-import 'package:flutter/services.dart';
 
 import 'countrypage.dart';
 

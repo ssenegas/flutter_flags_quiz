@@ -14,10 +14,13 @@ class CountryQuiz {
     this.loadJsonCountries();
   }
 
+  Future<String> getJson() {
+    return rootBundle.loadString('assets/data/en/countries.json');
+  }
+
   void loadJsonCountries() async {
-    var jsonText = await rootBundle.loadString('assets/data/en/countries.json');
-    var countryObjsJson = jsonDecode(jsonText) as List;
-    _countries = countryObjsJson.map((tagJson) => Country.fromJson(tagJson)).toList();
+    var countryObjsJson = jsonDecode(await getJson()) as List;
+    _countries = countryObjsJson.map((json) => Country.fromJson(json)).toList();
   }
 
   void resetQuiz() {
@@ -35,7 +38,11 @@ class CountryQuiz {
     randomIndex = random.nextInt(quizItems.length);
     correctAnswer = quizItems[randomIndex];
 
-    quizItems.forEach(print);
-    print('The correct answer is $correctAnswer.toString().');
+    print(this.toString());
+  }
+
+  @override
+  String toString() {
+    return quizItems.toString() + '\nAnswer: $correctAnswer.';
   }
 }

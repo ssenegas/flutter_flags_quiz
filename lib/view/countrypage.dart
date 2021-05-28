@@ -19,7 +19,7 @@ class CountryPageState extends State<CountryPage> {
   Future<String> loadJsonCountries() async {
     var jsonText = await rootBundle.loadString('assets/data/en/countries.json');
     var countryObjsJson = jsonDecode(jsonText) as List;
-    setState(() => countries = countryObjsJson.map((tagJson) => Country.fromJson(tagJson)).toList());
+    setState(() => countries = countryObjsJson.map((json) => Country.fromJson(json)).toList());
     return 'Success!';
   }
 

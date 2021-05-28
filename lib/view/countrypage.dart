@@ -5,7 +5,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 import 'package:flutter/services.dart';
 
-import 'country.dart';
+import '../model/country.dart';
 
 class CountryPage extends StatefulWidget {
   @override

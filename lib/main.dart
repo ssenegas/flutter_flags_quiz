@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'countrypage.dart';
+import 'model/country_quiz.dart';
+import 'view/countrypage.dart';
 
 void main() {
   runApp(MyApp());
@@ -50,6 +51,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+
+  CountryQuiz quiz = new CountryQuiz();
 
   void _incrementCounter() {
     setState(() {
@@ -119,6 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void enterQuiz(BuildContext context) {
+    quiz.resetQuiz();
   }
 
   void enterCountries(BuildContext context) {

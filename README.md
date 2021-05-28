@@ -2,6 +2,10 @@
 
 A little application in Dart/Flutter. This app lets users test their skills in a game of identifying country flags and names.
 
+## Credits
+
+- [World countries](https://github.com/stefangabos/world_countries), Constantly updated lists of world countries with associated ISO 3166-1 alpha-2, alpha-3 and numeric codes, available in multiple formats and languages, with national flags included
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

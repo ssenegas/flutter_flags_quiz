@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'model/countryquizgenerator.dart';
-import 'screen/countrylistwidget.dart';
+import 'screens/countrylist_screen.dart';
 
 void main() {
   runApp(MyApp());

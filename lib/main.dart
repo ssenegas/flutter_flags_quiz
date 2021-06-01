@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'model/countryquizgenerator.dart';
 import 'screens/countrylist_screen.dart';
+import 'screens/countryquiz_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,8 +32,6 @@ class MyApp extends StatelessWidget {
 }
 
 class HomeScreen extends StatelessWidget {
-
-  CountryQuizGenerator quiz = new CountryQuizGenerator();
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +69,10 @@ class HomeScreen extends StatelessWidget {
   }
 
   void enterQuiz(BuildContext context) {
-    quiz.generate();
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CountryQuizWidget()),
+    );
   }
 
   void enterCountries(BuildContext context) {

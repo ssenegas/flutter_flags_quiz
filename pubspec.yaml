@@ -60,6 +60,7 @@ flutter:
     - assets/flags/16x16/
     - assets/flags/32x32/
     - assets/flags/64x64/
+    - assets/flags/128x128/
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a

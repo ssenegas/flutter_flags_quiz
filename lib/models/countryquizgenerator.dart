@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'country.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
@@ -10,18 +12,21 @@ class CountryQuizGenerator {
   List<Country> quizItems = [];
   Country correctAnswer;
 
-  CountryQuizGenerator() {
-    this.loadJsonCountries();
+  static Future<CountryQuizGenerator> getInstance() async {
+    var countries = await getCountries();
+    return new CountryQuizGenerator(countries);
   }
 
-  Future<String> getJson() {
+  static Future<String> getJson() {
     return rootBundle.loadString('assets/data/en/countries.json');
   }
 
-  void loadJsonCountries() async {
+  static Future<List<Country>> getCountries() async {
     var countryObjectsJson = jsonDecode(await getJson()) as List;
-    _countries = countryObjectsJson.map((json) => Country.fromJson(json)).toList();
+    return countryObjectsJson.map((json) => Country.fromJson(json)).toList();
   }
+
+  CountryQuizGenerator(this._countries);
 
   void generate() {
     _countries.shuffle();

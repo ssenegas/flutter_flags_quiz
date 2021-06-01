@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'model/countryquizgenerator.dart';
-import 'screen/countrylist.dart';
+import 'screen/countrylistwidget.dart';
 
 void main() {
   runApp(MyApp());
@@ -77,7 +77,7 @@ class HomeScreen extends StatelessWidget {
   void enterCountries(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => CountryList()),
+      MaterialPageRoute(builder: (context) => CountryListWidget()),
     );
   }
 }

@@ -9,21 +9,15 @@ class CountryQuizWidget extends StatefulWidget {
 
 class _CountryQuizState extends State<CountryQuizWidget> {
 
-  CountryQuizGenerator quiz;
-
   @override
   void initState() {
     super.initState();
-    //setState(() => quiz = CountryQuizGenerator.getInstance() );
-    CountryQuizGenerator.getInstance().then((val) => setState(() {
-      quiz = val;
-    }));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Quiz')),
+      appBar: AppBar(title: const Text('Flag Quiz')),
       body: _buildQuiz(context),
     );
   }
@@ -33,11 +27,10 @@ class _CountryQuizState extends State<CountryQuizWidget> {
         future: CountryQuizGenerator.getInstance(),
         builder: (BuildContext context, AsyncSnapshot<CountryQuizGenerator> snapshot) {
           if (snapshot.hasData) {
-            snapshot.data.generate();
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: _getItems(snapshot.data),
+                children: _getNewQuiz(snapshot.data),
               ),
             );
           } else if (snapshot.hasError) {
@@ -57,7 +50,8 @@ class _CountryQuizState extends State<CountryQuizWidget> {
         });
   }
 
-  List<Widget> _getItems(CountryQuizGenerator quiz) {
+  List<Widget> _getNewQuiz(CountryQuizGenerator quiz) {
+    quiz.generate();
     List<Widget> retValue = [];
     retValue.add(
         Container(

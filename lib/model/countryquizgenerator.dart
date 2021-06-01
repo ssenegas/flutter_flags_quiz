@@ -4,13 +4,13 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/services.dart';
 
-class CountryQuiz {
+class CountryQuizGenerator {
   final _maxItems = 4;
   List<Country> _countries;
   List<Country> quizItems = [];
   Country correctAnswer;
 
-  CountryQuiz() {
+  CountryQuizGenerator() {
     this.loadJsonCountries();
   }
 
@@ -19,24 +19,21 @@ class CountryQuiz {
   }
 
   void loadJsonCountries() async {
-    var countryObjsJson = jsonDecode(await getJson()) as List;
-    _countries = countryObjsJson.map((json) => Country.fromJson(json)).toList();
+    var countryObjectsJson = jsonDecode(await getJson()) as List;
+    _countries = countryObjectsJson.map((json) => Country.fromJson(json)).toList();
   }
 
-  void resetQuiz() {
+  void generate() {
     _countries.shuffle();
     var random = new Random();
     if (quizItems.isNotEmpty) {
       quizItems.clear();
     }
 
-    var randomIndex;
     for(var i = 0; i < _maxItems; i++) {
-      randomIndex = random.nextInt(_countries.length);
-      quizItems.add(_countries[randomIndex]);
+      quizItems.add(_countries[random.nextInt(_countries.length)]);
     }
-    randomIndex = random.nextInt(quizItems.length);
-    correctAnswer = quizItems[randomIndex];
+    correctAnswer = quizItems[random.nextInt(quizItems.length)];
 
     print(this.toString());
   }

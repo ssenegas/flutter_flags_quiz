@@ -7,12 +7,12 @@ import 'package:flutter/services.dart';
 
 import '../model/country.dart';
 
-class CountryPage extends StatefulWidget {
+class CountryList extends StatefulWidget {
   @override
-  CountryPageState createState() => new CountryPageState();
+  CountryListState createState() => new CountryListState();
 }
 
-class CountryPageState extends State<CountryPage> {
+class CountryListState extends State<CountryList> {
 
   List<Country> countries;
 

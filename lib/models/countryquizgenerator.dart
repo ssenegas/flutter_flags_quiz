@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'country.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';

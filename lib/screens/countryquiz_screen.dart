@@ -52,25 +52,40 @@ class _CountryQuizState extends State<CountryQuizWidget> {
 
   List<Widget> _getNewQuiz(CountryQuizGenerator quiz) {
     quiz.generate();
-    List<Widget> retValue = [];
-    retValue.add(
-        Container(
-          child: Image.asset('assets/flags/128x128/${quiz.correctAnswer.alpha2}.png'),
-        ));
 
     List<Widget> buttons = [];
     for (var i = 0; i < quiz.quizItems.length; i++) {
-      buttons.add(
-          ElevatedButton(
+      buttons.add(ButtonTheme(
+        height: 20.0,
+          child: ElevatedButton(
             child: new Text(quiz.quizItems[i].name),
             onPressed: () {
               checkAnswer(quiz.quizItems[i].name, quiz);
             },
-          )
+          ),
+      )
       );
     }
-    retValue.add(Column(children: buttons));
-    return retValue;
+
+    List<Widget> widgets = [];
+    widgets.add(
+        Container(
+        child: Image.asset('assets/flags/128x128/${quiz.correctAnswer.alpha2}.png',
+          scale: 0.8,),
+        ));
+    widgets.add(
+        GridView.count(
+            padding: const EdgeInsets.all(20),
+            physics: const NeverScrollableScrollPhysics(),
+            mainAxisSpacing: 20.0,
+            crossAxisSpacing: 20.0,
+            childAspectRatio: 4,
+            shrinkWrap: true,
+            crossAxisCount: 2,
+            primary: true,
+            children: buttons)
+    );
+    return widgets;
   }
 
   void checkAnswer(String answer, CountryQuizGenerator quiz) {

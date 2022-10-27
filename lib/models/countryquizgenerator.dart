@@ -1,48 +1,46 @@
-import 'country.dart';
-import 'package:flutter/services.dart' show rootBundle;
-import 'dart:convert';
 import 'dart:math';
-import 'package:flutter/services.dart';
 
-class CountryQuizGenerator {
+import 'package:flutter/cupertino.dart';
+
+import 'country.dart';
+
+class CountryQuizGenerator extends ChangeNotifier {
+  final int _quizNumber = 0;
+  int get quizNumber => _quizNumber;
+
   final _maxItems = 4;
-  List<Country> _countries;
+  int get maxItems => _maxItems;
+
+  final List<Country> _countries;
+  List<Country> get countries => _countries;
+
   List<Country> quizItems = [];
-  Country correctAnswer;
-
-  static Future<CountryQuizGenerator> getInstance() async {
-    var countries = await getCountries();
-    return new CountryQuizGenerator(countries);
-  }
-
-  static Future<String> getJson() {
-    return rootBundle.loadString('assets/data/en/countries.json');
-  }
-
-  static Future<List<Country>> getCountries() async {
-    var countryObjectsJson = jsonDecode(await getJson()) as List;
-    return countryObjectsJson.map((json) => Country.fromJson(json)).toList();
-  }
+  late Country correctAnswer;
 
   CountryQuizGenerator(this._countries);
 
-  void generate() {
+  void setupQuizRound() {
     _countries.shuffle();
-    var random = new Random();
-    if (quizItems.isNotEmpty) {
-      quizItems.clear();
-    }
+    var random = Random();
+    quizItems.clear();
 
-    for(var i = 0; i < _maxItems; i++) {
-      quizItems.add(_countries[random.nextInt(_countries.length)]);
+    for (var i = 0; i < _maxItems; i++) {
+      quizItems.add(_countries[random.nextInt(_countries
+          .length)]); // TODO check if one of the item is the same country
     }
     correctAnswer = quizItems[random.nextInt(quizItems.length)];
+    print(toString());
 
-    print(this.toString());
+    notifyListeners();
+  }
+
+  void checkAnswer(String answer) {
+    bool result = (answer == correctAnswer.name);
+    if (result) {}
   }
 
   @override
   String toString() {
-    return quizItems.toString() + '\nAnswer: $correctAnswer.';
+    return '$quizItems\nAnswer: $correctAnswer.';
   }
 }

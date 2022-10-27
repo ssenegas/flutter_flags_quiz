@@ -1,62 +1,46 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'dart:async' show Future;
-import 'package:flutter/services.dart' show rootBundle;
-import 'dart:convert';
-import 'package:flutter/services.dart';
 
 import '../models/country.dart';
 
-class CountryListWidget extends StatefulWidget {
-  @override
-  _CountryListWidgetState createState() => new _CountryListWidgetState();
-}
+class CountryListWidget extends StatelessWidget {
+  const CountryListWidget({Key? key, required this.countries})
+      : super(key: key);
 
-class _CountryListWidgetState extends State<CountryListWidget> {
-
-  List<Country> countries;
-
-  Future<String> loadJsonCountries() async {
-    var jsonText = await rootBundle.loadString('assets/data/en/countries.json');
-    var countryObjsJson = jsonDecode(jsonText) as List;
-    setState(() => countries = countryObjsJson.map((json) => Country.fromJson(json)).toList());
-    return 'Success!';
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    this.loadJsonCountries();
-  }
+  final List<Country> countries;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Countries')),
-      body: _buildList(),
-    );
+        appBar: AppBar(title: const Text('Countries')),
+        body: CountriesList(countries: countries));
   }
+}
 
-  Widget _buildList() {
-    return ListView.separated(
-      itemCount: countries == null ? 0 : countries.length,
-      separatorBuilder: (context, index) => const Divider(),
-      itemBuilder: _buildListItem,
-    );
-  }
+class CountriesList extends StatelessWidget {
+  const CountriesList({super.key, required this.countries});
 
-  Widget _buildListItem(BuildContext context, int index) {
+  final List<Country> countries;
+
+  @override
+  Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return ListTile(
-        leading: Image.asset('assets/flags/64x64/${countries[index].alpha2}.png'),
-        title: Text(countries[index].name,
-          overflow: TextOverflow.ellipsis,
-          style: theme.textTheme.headline6,
-        ),
-        subtitle: Text(countries[index].toString(),
-          overflow: TextOverflow.ellipsis,
-          style: theme.textTheme.caption,
-        ),
-    );
+    countries.sort((a, b) => a.name.compareTo(b.name));
+    return ListView(
+        children: ListTile.divideTiles(
+            color: Colors.blue,
+            tiles: countries.map((item) => ListTile(
+                  leading: Image.asset('assets/flags/64x64/${item.alpha2}.png'),
+                  title: Text(
+                    item.name,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.headline6,
+                  ),
+                  subtitle: Text(
+                    item.toString(),
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.caption,
+                  ),
+                ))).toList());
   }
 }
